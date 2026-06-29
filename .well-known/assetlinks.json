@@ -5,7 +5,7 @@
     ],
     "target": {
       "namespace": "android_app",
-      "package_name": "com.example.mytwa_smart",
+      "package_name": "com.royal.gymshark",
       "sha256_cert_fingerprints": [
         "68520a58a9968bf0fc02152073f527d454b2b236312675acb6d89d9e3e43d733"
       ]
