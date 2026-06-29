@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.example.mytwa_smart",
+      "sha256_cert_fingerprints": [
+        "c53d79609fc2bf48f7e4105a8414d298c4760598fcf21a2cc1686aaf8c3acd9f"
+      ]
+    }
+  }
+]
