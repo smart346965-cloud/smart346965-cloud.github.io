@@ -2,389 +2,86 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Hero - Icy White × Stormy Blue | عاصفة وجليد</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Auth Engine - Google Sign-In Test</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: -apple-system, 'Helvetica Neue', 'Segoe UI', sans-serif;
-            background-color: #FFFFFF;
-        }
-
-        /* هيرو سكشن - خلفية بيضاء ثلجية محسّنة */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 2rem;
-            background: linear-gradient(145deg, #FFFFFF 0%, #F5F8FF 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* تأثير جليدي محسّن */
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -30%;
-            left: -30%;
-            width: 160%;
-            height: 160%;
-            background: radial-gradient(circle at 30% 40%, rgba(255,255,255,0.6) 0%, transparent 65%);
-            pointer-events: none;
-        }
-
-        /* تأثير كريستالي */
-        .hero::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 100%;
-            height: 30%;
-            background: linear-gradient(to top, rgba(20,24,36,0.02) 0%, transparent 100%);
-            pointer-events: none;
-        }
-
-        .content {
-            max-width: 900px;
-            z-index: 2;
-        }
-
-        /* ===== الشريط العلوي (Badge) ===== */
-        .top-bar {
-            display: inline-block;
-            font-size: 0.7rem;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            color: #141824;
-            background: rgba(20, 24, 36, 0.06);
-            padding: 0.5rem 1.5rem;
-            border-radius: 50px;
-            margin-bottom: 1.8rem;
-            backdrop-filter: blur(2px);
-            font-weight: 500;
-            animation: fadeInUp 0.6s ease-out;
-        }
-
-        /* ===== العنوان الرئيسي ===== */
-        .hero h1 {
-            font-size: 3.2rem;
-            font-weight: 600;
-            letter-spacing: 2px;
-            color: #141824;
-            margin-bottom: 1.2rem;
-            line-height: 1.3;
-            animation: fadeInUp 0.6s ease-out 0.1s both;
-        }
-
-        /* ===== الخط الفاصل الراقي ===== */
-        .divider {
-            width: 70px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #141824, #7A8595, #141824, transparent);
-            margin: 1.5rem auto;
-            animation: fadeInUp 0.6s ease-out 0.2s both;
-        }
-
-        /* ===== النص الفرعي ===== */
-        .hero p {
-            font-size: 1.05rem;
-            font-weight: 350;
-            color: #5A6573;
-            letter-spacing: 0.5px;
-            line-height: 1.8;
-            max-width: 600px;
-            margin: 0 auto 2.2rem auto;
-            animation: fadeInUp 0.6s ease-out 0.3s both;
-        }
-
-        /* ===== مجموعة الأزرار ===== */
-        .buttons {
-            display: flex;
-            gap: 1.2rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            animation: fadeInUp 0.6s ease-out 0.4s both;
-        }
-
-        /* الزر الأساسي - أزرق غائم مع حواف دائرية وتأثيرات احترافية */
-        .btn-primary {
-            background-color: #141824;
+            background-color: #090D16;
             color: #FFFFFF;
-            border: none;
-            padding: 1rem 2.5rem;
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            border-radius: 50px;
-            font-family: inherit;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
+            font-family: system-ui, -apple-system, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
         }
-
-        /* تأثير تموج احترافي على الزر الأساسي */
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.15);
-            transform: translate(-50%, -50%);
-            transition: width 0.5s ease, height 0.5s ease;
-            z-index: -1;
+        .nx-card {
+            width: 100%;
+            max-width: 420px;
+            background: linear-gradient(180deg, #111827 0%, #0F172A 100%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 28px;
+            padding: 40px 24px;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
         }
-
-        .btn-primary:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-
-        .btn-primary:hover {
-            background-color: #1E2432;
-            transform: translateY(-3px);
-            box-shadow: 0 12px 28px -10px rgba(20, 24, 36, 0.4);
-        }
-
-        /* الزر الثانوي - حواف دائرية شفافة */
-        .btn-secondary {
-            background: transparent;
-            color: #141824;
-            border: 1.5px solid rgba(20, 24, 36, 0.25);
-            padding: 1rem 2.5rem;
-            font-size: 0.85rem;
-            font-weight: 500;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            border-radius: 50px;
-            font-family: inherit;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        /* تأثير تموج احترافي على الزر الثانوي */
-        .btn-secondary::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(20, 24, 36, 0.08);
-            transform: translate(-50%, -50%);
-            transition: width 0.5s ease, height 0.5s ease;
-            z-index: -1;
-          }
-
-        .btn-secondary:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-
-        .btn-secondary:hover {
-            border-color: #141824;
-            background: rgba(20, 24, 36, 0.02);
-            transform: translateY(-3px);
-        }
-
-        button:active {
-            transform: translateY(1px);
-        }
-
-        /* ===== أنيميشن fadeInUp احترافي ===== */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* ===== استجابة للشاشات الصغيرة ===== */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 1.8rem;
-                letter-spacing: 1px;
-            }
-            .hero p {
-                font-size: 0.9rem;
-            }
-            .buttons {
-                gap: 0.8rem;
-            }
-            .btn-primary, .btn-secondary {
-                padding: 0.75rem 1.8rem;
-                font-size: 0.7rem;
-                letter-spacing: 1.5px;
-            }
-            .top-bar {
-                font-size: 0.6rem;
-                letter-spacing: 3px;
-                padding: 0.4rem 1.2rem;
-            }
-        }
-
-        /* للشاشات المتوسطة */
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 1.5rem;
-            }
-            .hero p {
-                font-size: 0.8rem;
-            }
-        }
-
-        /* زر الفحص العائم (الدائرة الصغيرة) */
-        .diagnostic-trigger {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 45px;
-            height: 45px;
-            background: #141824;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            color: #00e5ff;
-            font-size: 18px;
-            cursor: pointer;
-            z-index: 9999;
+        .nx-title { font-size: 2.2rem; font-weight: 900; margin-bottom: 6px; }
+        .nx-dot { color: #0EA5E9; }
+        .nx-subtitle { color: #64748B; font-size: 0.85rem; margin-bottom: 35px; }
+        .nx-google-btn {
+            width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            transition: all 0.3s ease;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #F8FAFC;
+            padding: 16px;
+            border-radius: 16px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
         }
-        .diagnostic-trigger:hover { transform: scale(1.1); background: #1E2432; }
-
-        /* لوحة التقرير المنبثقة */
-        .diagnostic-panel {
-            position: fixed;
-            bottom: 80px;
-            right: 20px;
-            width: 340px;
-            max-height: 400px;
-            background: #141824;
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 12px;
-            padding: 15px;
-            color: #fff;
-            font-family: monospace;
-            font-size: 12px;
-            z-index: 9998;
-            display: none;
-            overflow-y: auto;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            direction: ltr;
-            text-align: left;
-        }
-        .diag-line { padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .diag-success { color: #81c784; }
-        .diag-error { color: #e57373; }
+        .nx-google-btn:hover { background: rgba(255, 255, 255, 0.08); }
+        .nx-google-btn svg { width: 22px; height: 22px; }
     </style>
 </head>
 <body>
 
-    <section class="hero">
-        <div class="content">
-            <div class="top-bar">طبقة الأداء لعام 2026</div>
-            
-            <h1>تجربة تجعل متجرك<br>جزءاً من يومهم</h1>
-            
-            <div class="divider"></div>
-            
-            <p>أداء أسرع وأكثر سلاسة، بدون تعقيدات التصفح التقليدي — استجابة فورية تجعل العودة لمتجرك رغبة لا تُقاوم.</p>
-            
-            <div class="buttons">
-                <button class="btn-primary">جرب الآن</button>
-                <button class="btn-secondary">تواصل معنا</button>
-            </div>
-        </div>
-    </section>
+    <div class="nx-card">
+        <h1 class="nx-title">Nexus<span class="nx-dot">.</span></h1>
+        <p class="nx-subtitle">بيئة اختبار مصادقة Google المباشرة</p>
 
-    <button class="diagnostic-trigger" onclick="toggleDiagPanel()">🔍</button>
-    <div class="diagnostic-panel" id="diagPanel">
-        <div style="color:#00e5ff; font-weight:bold; margin-bottom:10px; border-bottom:1px solid #00e5ff; padding-bottom:5px;">🛡️ Nexus TWA Radar</div>
-        <div id="diagLogs">جاري فحص حالة الارتباط المباشر...</div>
+        <button class="nx-google-btn" onclick="startGoogleAuth()">
+            <svg viewBox="0 0 24 24">
+                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
+                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
+                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05" />
+                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
+            </svg>
+            <span>متابعة باستخدام Google</span>
+        </button>
     </div>
 
     <script>
-        function toggleDiagPanel() {
-            const panel = document.getElementById('diagPanel');
-            panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+        // 🚨 استبدل المفتاح ورابط العودة ببيانات مشروعك
+        const CLIENT_ID = "142331357333-gm77m2j5so428n1q3ilqnaaehr692pp1.apps.googleusercontent.com"; 
+        const REDIRECT_URI = "https://YOUR-TEST-DOMAIN.com/callback.html";
+
+        function startGoogleAuth() {
+            const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?` +
+                `client_id=${encodeURIComponent(CLIENT_ID)}` +
+                `&redirect_uri=${encodeURIComponent(REDIRECT_URI)}` +
+                `&response_type=id_token%20token` +
+                `&scope=openid%20email%20profile` +
+                `&nonce=nexus_${Math.random().toString(36).substring(7)}` +
+                `&prompt=select_account`;
+
+            window.location.href = googleAuthUrl;
         }
-
-        (function() {
-            const logsDiv = document.getElementById('diagLogs');
-            logsDiv.innerHTML = ""; // تصفير
-
-            function addLog(msg, type) {
-                const div = document.createElement('div');
-                div.className = `diag-line ${type === 'success' ? 'diag-success' : type === 'error' ? 'diag-error' : ''}`;
-                div.innerText = msg;
-                logsDiv.appendChild(div);
-            }
-
-            addLog("⏳ Fetching real production assetlinks.json...", "info");
-
-            fetch('/.well-known/assetlinks.json')
-                .then(res => {
-                    if (!res.ok) throw new Error(`HTTP Error! Status: ${res.status}`);
-                    addLog("🟢 Step 1: Assetlinks File Detected on Server", "success");
-                    return res.json();
-                })
-                .then(data => {
-                    if (!Array.isArray(data) || data.length === 0) {
-                        throw new Error("Invalid JSON structure (Must be a JSON Array)");
-                    }
-                    addLog("🟢 Step 2: JSON Structure Validated", "success");
-
-                    const target = data[0]?.target;
-                    const relation = data[0]?.relation?.[0];
-
-                    if (!target || !target.package_name || !target.sha256_cert_fingerprints) {
-                        throw new Error("Missing target fields (package_name or fingerprints)");
-                    }
-
-                    // طباعة البيانات الحقيقية المستخرجة مباشرة من الملف بدون تخمين أو مقارنة خاطئة
-                    addLog(`🟢 Step 3: Package Name Verified -> [ ${target.package_name} ]`, "success");
-                    
-                    const cleanSha = target.sha256_cert_fingerprints[0];
-                    addLog(`🟢 Step 4: SHA-256 Fingerprint Verified -> [ ${cleanSha} ]`, "success");
-
-                    if (relation === "delegate_permission/common.handle_all_urls") {
-                        addLog("🟢 Step 5: Relation Permission Approved", "success");
-                        addLog("👑 RESULT: TRUST ACTIVE (TWA Approved & Matches App)", "success");
-                    } else {
-                        addLog(`⚠️ Step 5: Relation found: ${relation}`, "info");
-                        addLog("👑 RESULT: ASSETLINKS LIVE", "success");
-                    }
-                })
-                .catch(err => {
-                    addLog(`❌ Diagnostic Failed: ${err.message}`, "error");
-                    addLog("👑 RESULT: BLOCK / UNTRUSTED WEBSITE", "error");
-                });
-        })();
     </script>
 </body>
 </html>
