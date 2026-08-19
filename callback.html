@@ -26,14 +26,6 @@
             text-align: center;
             box-shadow: 0 0 40px rgba(14, 165, 233, 0.15);
         }
-        .nx-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            border: 3px solid #0EA5E9;
-            margin: 0 auto 15px auto;
-            object-fit: cover;
-        }
         .nx-badge {
             display: inline-block;
             background: rgba(16, 185, 129, 0.15);
@@ -47,19 +39,6 @@
         }
         .nx-user-name { font-size: 1.4rem; font-weight: 800; margin-bottom: 4px; }
         .nx-user-email { color: #94A3B8; font-size: 0.85rem; margin-bottom: 25px; word-break: break-all; }
-        
-        .nx-session-box {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 14px;
-            padding: 12px;
-            font-size: 0.75rem;
-            color: #64748B;
-            margin-bottom: 25px;
-            text-align: right;
-        }
-        .nx-session-key { color: #0EA5E9; font-weight: bold; }
-
         .nx-redirect-btn {
             width: 100%;
             background: #0EA5E9;
@@ -70,34 +49,21 @@
             font-weight: 800;
             font-size: 0.95rem;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
         }
     </style>
 </head>
 <body>
 
     <div class="nx-card">
-        <div class="nx-badge">✓ تم إنشاء الجلسة وتوثيق الحساب بنجاح</div>
-        
-        <img id="user-avatar" class="nx-avatar" src="https://via.placeholder.com/80" alt="Avatar" />
+        <div class="nx-badge">✓ جاري تثبيت الجلسة والتحويل...</div>
         <h2 id="user-name" class="nx-user-name">جاري الفحص...</h2>
         <p id="user-email" class="nx-user-email">...</p>
-
-        <div class="nx-session-box">
-            <div><span class="nx-session-key">حالة الجلسة:</span> نشطة (Active Session)</div>
-            <div><span class="nx-session-key">رمز التوثيق (UID):</span> <span id="user-uid">...</span></div>
-            <div><span class="nx-session-key">المحرك Target:</span> Nexus WebView Engine</div>
-        </div>
-
-        <button class="nx-redirect-btn" onclick="returnToApp()">
-            العودة للتطبيق فوراً 🚀
-        </button>
+        <button class="nx-redirect-btn" onclick="returnToApp()">العودة للتطبيق فوراً 🚀</button>
     </div>
 
     <script>
         let appRedirectUrl = "";
 
-        // فك تشفير توكن JWT المستلم من جوجل دون الحاجة لمكتبات خارجية
         function parseJwt(token) {
             try {
                 const base64Url = token.split('.')[1];
@@ -112,7 +78,6 @@
         }
 
         window.onload = function() {
-            // استخراج الـ ID Token من رابط العودة (Hash Fragment)
             const hash = window.location.hash.substring(1);
             const params = new URLSearchParams(hash);
             const idToken = params.get('id_token');
@@ -121,39 +86,30 @@
                 const userData = parseJwt(idToken);
 
                 if (userData) {
-                    // 💾 محاكاة السيرفر: كتابة الكوكي والـ Storage داخل نطاق WebView
+                    document.getElementById('user-name').innerText = userData.name || 'مستخدم Nexus';
+                    document.getElementById('user-email').innerText = userData.email || '';
+
+                    // 1. زرع الكوكي والـ LocalStorage داخل نطاق المتصفح
                     document.cookie = "nexus_session=" + encodeURIComponent(idToken) + "; path=/; max-age=86400; SameSite=Lax";
                     localStorage.setItem("nexus_user", JSON.stringify(userData));
 
-                    // عرض بيانات المستخدم الحقيقية القادمة من جوجل
-                    document.getElementById('user-avatar').src = userData.picture || 'https://via.placeholder.com/80';
-                    document.getElementById('user-name').innerText = userData.name || 'مستخدم Nexus';
-                    document.getElementById('user-email').innerText = userData.email || 'لا يوجد بريد';
-                    document.getElementById('user-uid').innerText = userData.sub.substring(0, 12) + "...";
+                    // 2. تجهيز السكيم المخصص لتوجيه التطبيق وإغلاق Custom Tab
+                    const mainAppUrl = "https://smart346965-cloud.github.io/";
+                    appRedirectUrl = `com.store.app.auth://callback?target=${encodeURIComponent(mainAppUrl)}&code=${encodeURIComponent(idToken)}`;
 
-                    // تجهيز الرابط المخصص لإغلاق Custom Tab وإعادة الجلسة للـ WebView
-                    appRedirectUrl = `com.store.app.auth://callback?` +
-                        `code=${encodeURIComponent(idToken)}` +
-                        `&email=${encodeURIComponent(userData.email || '')}` +
-                        `&name=${encodeURIComponent(userData.name || '')}` +
-                        `&uid=${encodeURIComponent(userData.sub || '')}`;
-
-                    // تحويل تلقائي بعد 1.5 ثانية لإتاحة الفرصة للمعاينة البصرية
+                    // 3. التوجيه التلقائي خلال ثانية واحدة
                     setTimeout(() => {
                         returnToApp();
-                    }, 1500);
+                    }, 1000);
                 }
             } else {
-                document.getElementById('user-name').innerText = "خطأ في استقبال التوكن";
-                document.getElementById('user-email').innerText = "لم يتم العثور على id_token من جوجل.";
+                document.getElementById('user-name').innerText = "خطأ في استقبال التوكن من جوجل";
             }
         };
 
         function returnToApp() {
             if (appRedirectUrl) {
                 window.location.href = appRedirectUrl;
-            } else {
-                alert("رابط التحويل غير جاهز!");
             }
         }
     </script>
