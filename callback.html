@@ -121,6 +121,10 @@
                 const userData = parseJwt(idToken);
 
                 if (userData) {
+                    // 💾 محاكاة السيرفر: كتابة الكوكي والـ Storage داخل نطاق WebView
+                    document.cookie = "nexus_session=" + encodeURIComponent(idToken) + "; path=/; max-age=86400; SameSite=Lax";
+                    localStorage.setItem("nexus_user", JSON.stringify(userData));
+
                     // عرض بيانات المستخدم الحقيقية القادمة من جوجل
                     document.getElementById('user-avatar').src = userData.picture || 'https://via.placeholder.com/80';
                     document.getElementById('user-name').innerText = userData.name || 'مستخدم Nexus';
@@ -155,4 +159,3 @@
     </script>
 </body>
 </html>
-
