@@ -75,7 +75,6 @@
     </div>
 
     <script>
-        // 🚨 استبدل المفتاح ورابط العودة ببيانات مشروعك
         const CLIENT_ID = "142331357333-gm77m2j5so428n1q3ilqnaaehr692pp1.apps.googleusercontent.com"; 
         const REDIRECT_URI = "https://smart346965-cloud.github.io/callback.html";
 
@@ -91,24 +90,32 @@
             window.location.href = googleAuthUrl;
         }
 
-        // فحص وجود الجلسة/الكوكي عند تحميل الصفحة
+        // فحص وجود الجلسة/الكوكي أو التوكن القادم من الأندرويد عند تحميل الصفحة
         window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const codeToken = urlParams.get('code') || urlParams.get('id_token');
+
+            // إذا أتى التوكن محمولاً مع رابط العودة من الأندرويد، نثبت الجلسة فوراً داخل الـ WebView
+            if (codeToken) {
+                document.cookie = "nexus_session=" + encodeURIComponent(codeToken) + "; path=/; max-age=86400; SameSite=Lax";
+            }
+
             const hasCookie = document.cookie.includes("nexus_session=");
             const userData = localStorage.getItem("nexus_user");
 
-            if (hasCookie || userData) {
+            if (hasCookie || userData || codeToken) {
                 document.getElementById('login-view').style.display = 'none';
                 document.getElementById('dashboard-view').style.display = 'block';
                 const user = userData ? JSON.parse(userData) : null;
-                document.getElementById('welcome-user').innerText = user ? user.name : "تم التحقق من الكوكي بنجاح!";
+                document.getElementById('welcome-user').innerText = user ? user.name : "🎉 تم إنشاء الجلسة بنجاح داخل الـ WebView!";
             }
         };
 
         function logout() {
             document.cookie = "nexus_session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
             localStorage.removeItem("nexus_user");
-            window.location.reload();
+            window.location.href = "https://smart346965-cloud.github.io/";
         }
     </script>
 </body>
-                                                                                                                                                                                                                                                                                                                                                               </html>
+            </html>
